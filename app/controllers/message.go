@@ -23,7 +23,7 @@ func (u *ctrl) HandlerInsertMessage(w http.ResponseWriter, r *http.Request) {
 	ctx, msg, st, err := u.uc.InsertMessage(ctx, &s)
 	if err != nil {
 		ctx = logger.Logf(ctx, "insert error() => %v", err)
-		utils.Response(ctx, w, false, http.StatusInternalServerError, "error while insert message")
+		utils.Response(ctx, w, false, st, msg)
 		return
 	}
 
