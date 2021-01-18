@@ -45,6 +45,7 @@ func (c *route) Router(port string) {
 	router.Group(func(r chi.Router) {
 		r.Use(ezpromhttp.InstrumentHandler, middleware.CheckAPIKey)
 		r.Post("/message", c.ctrl.HandlerInsertMessage)
+		r.Get("/message", c.ctrl.HandlerGetAllMessage)
 	})
 
 	router.MethodNotAllowed(middleware.NotAllowed)

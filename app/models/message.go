@@ -8,4 +8,5 @@ type Message struct {
 	PhoneNumber string `json:"phoneNumber" gorm:"phone_number"`
 	Subject     string `json:"subject" gorm:"subject"`
 	Message     string `json:"message" gorm:"message"`
+	Channel     string `json:"-" gorm:"column:channel"`
 }

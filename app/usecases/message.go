@@ -9,6 +9,21 @@ import (
 	"github.com/mfaizfatah/api-webprofile/app/models"
 )
 
+func (r *uc) GetAllMessage(ctx context.Context, channel string) (context.Context, interface{}, string, int, error) {
+	var (
+		msg  string
+		code = http.StatusOK
+	)
+	result, err := r.query.FindAllMessageWithChannel(TableMessage, "channel = ?", channel)
+	if err != nil {
+		msg = "message not found"
+		code = http.StatusNotFound
+		return ctx, nil, msg, code, err
+	}
+
+	return ctx, result, msg, code, nil
+}
+
 func (r *uc) InsertMessage(ctx context.Context, req *models.Message) (context.Context, string, int, error) {
 	var (
 		msg  string

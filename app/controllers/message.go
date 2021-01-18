@@ -20,6 +20,8 @@ func (u *ctrl) HandlerInsertMessage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	s.Channel = r.Header.Get("channel")
+
 	ctx, msg, st, err := u.uc.InsertMessage(ctx, &s)
 	if err != nil {
 		ctx = logger.Logf(ctx, "insert error() => %v", err)
@@ -28,4 +30,19 @@ func (u *ctrl) HandlerInsertMessage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.Response(ctx, w, true, st, msg)
+}
+
+func (u *ctrl) HandlerGetAllMessage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	Channel := r.Header.Get("channel")
+
+	ctx, res, msg, st, err := u.uc.GetAllMessage(ctx, Channel)
+	if err != nil {
+		ctx = logger.Logf(ctx, "get error() => %v", err)
+		utils.Response(ctx, w, false, st, msg)
+		return
+	}
+
+	utils.Response(ctx, w, true, st, res)
 }

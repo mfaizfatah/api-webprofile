@@ -21,6 +21,7 @@ type uc struct {
 // Usecases represent the Usecases contract
 type Usecases interface {
 	InsertMessage(ctx context.Context, req *models.Message) (context.Context, string, int, error)
+	GetAllMessage(ctx context.Context, channel string) (context.Context, interface{}, string, int, error)
 }
 
 /*NewUC will create an object that represent the Usecases interface (Usecases)
